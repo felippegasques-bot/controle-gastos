@@ -5,20 +5,27 @@
   <title>Controle de Gastos</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+  <!-- titulo principal -->
   <h1>Controle de Gastos</h1>
 
+  <!-- area pra adicionar gasto -->
   <div class="form">
     <input type="text" id="nome" placeholder="Nome do gasto">
     <input type="number" id="valor" placeholder="Valor">
     <button onclick="adicionarGasto()">Adicionar</button>
   </div>
 
+  <!-- lista de gastos -->
   <ul id="lista"></ul>
 
+  <!-- total dos gastos -->
   <h2>Total: R$ <span id="total">0</span></h2>
 
+  <!-- script -->
   <script src="script.js"></script>
+
 </body>
 </html>
