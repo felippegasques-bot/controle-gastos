@@ -1,23 +1,37 @@
-Controle de Gastos
+# Controle de Gastos
 
-Aplicação web para gerenciamento de despesas do dia a dia.
+Aplicação web para anotar os gastos do dia a dia e ver, mês a mês, para onde o dinheiro está indo.
 
-Demonstração
-[Acesse o projeto](https://felippegasques-bot.github.io/controle-gastos/)
+**[Ver online](https://felippegasques-bot.github.io/controle-gastos/)** · para abrir já com dados de exemplo: [?exemplo](https://felippegasques-bot.github.io/controle-gastos/?exemplo)
 
-Preview
-![preview](https://github.com/user-attachments/assets/599720c6-b988-4c6e-89d8-fec5f8c17f9f)
+![Tela do Controle de Gastos com gastos de exemplo](preview.png)
 
-Funcionalidades
-- Adicionar gastos
-- Remover gastos
-- Cálculo automático do total
-- Armazenamento no navegador (localStorage)
+## O que faz
 
-Tecnologias
-- JavaScript
-- HTML
-- CSS
+- Lança gastos com descrição, valor, categoria e data
+- Filtra por mês e mostra o total, a categoria que mais pesou e quantos gastos foram lançados
+- Mostra um gráfico de barras por categoria, feito só com HTML e CSS
+- Guarda tudo no próprio navegador (localStorage), sem servidor
+- Funciona no celular
 
-Sobre o projeto
-Projeto desenvolvido para praticar lógica de programação, manipulação de DOM e armazenamento de dados no navegador.
+## Como rodar
+
+Não precisa instalar nada: baixe o repositório e abra o `index.html` no navegador.
+
+## Tecnologias
+
+JavaScript puro (sem bibliotecas), HTML e CSS.
+
+## O que pratiquei
+
+- Criar a lista com `createElement` e `textContent`, e não com `innerHTML`, para o texto digitado nunca virar código na página
+- Filtrar, ordenar e agrupar dados por mês e por categoria
+- Layout com CSS Grid que se adapta ao celular
+- Manter os gastos salvos na primeira versão funcionando depois da mudança no formato dos dados
+
+## Versões
+
+- **v2:** categorias, datas, filtro por mês, resumo e gráfico por categoria
+- **v1 (mar/2026):** lista simples com o total
+
+Existe também uma versão com back-end em Python: [smart-budget](https://github.com/felippegasques-bot/smart-budget).

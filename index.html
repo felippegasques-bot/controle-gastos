@@ -2,29 +2,82 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Controle de Gastos</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- titulo principal -->
-  <h1>Controle de Gastos</h1>
+  <main class="pagina">
 
-  <!-- area pra adicionar gasto -->
-  <div class="form">
-    <input type="text" id="nome" placeholder="Nome do gasto">
-    <input type="number" id="valor" placeholder="Valor">
-    <button onclick="adicionarGasto()">Adicionar</button>
-  </div>
+    <!-- topo: titulo e escolha do mes -->
+    <header class="topo">
+      <div>
+        <h1>Controle de Gastos</h1>
+        <p class="subtitulo">Anote o que gastou e veja para onde o dinheiro está indo.</p>
+      </div>
+      <label class="mes">
+        Mês
+        <input type="month" id="mes">
+      </label>
+    </header>
 
-  <!-- lista de gastos -->
-  <ul id="lista"></ul>
+    <!-- resumo do mes -->
+    <section class="resumo">
+      <div class="cartao">
+        <span class="rotulo">Total do mês</span>
+        <strong id="total">R$ 0,00</strong>
+      </div>
+      <div class="cartao">
+        <span class="rotulo">Maior categoria</span>
+        <strong id="maiorCategoria">—</strong>
+      </div>
+      <div class="cartao">
+        <span class="rotulo">Gastos lançados</span>
+        <strong id="quantidade">0</strong>
+      </div>
+    </section>
 
-  <!-- total dos gastos -->
-  <h2>Total: R$ <span id="total">0</span></h2>
+    <!-- formulario pra adicionar gasto -->
+    <form class="form" id="form">
+      <input type="text" id="nome" placeholder="Descrição (ex.: mercado)" maxlength="60">
+      <input type="number" id="valor" placeholder="Valor" step="0.01" min="0">
+      <select id="categoria">
+        <option>Mercado</option>
+        <option>Contas</option>
+        <option>Transporte</option>
+        <option>Alimentação</option>
+        <option>Saúde</option>
+        <option>Lazer</option>
+        <option>Outros</option>
+      </select>
+      <input type="date" id="data">
+      <button type="submit">Adicionar</button>
+    </form>
+    <p class="erro" id="erro"></p>
 
-  <!-- script -->
+    <!-- lista e grafico lado a lado -->
+    <section class="colunas">
+
+      <div class="bloco">
+        <h2>Gastos</h2>
+        <ul id="lista"></ul>
+        <div class="vazio" id="vazio">
+          <p>Nenhum gasto neste mês.</p>
+          <button type="button" class="secundario" id="exemplo">Ver com dados de exemplo</button>
+        </div>
+      </div>
+
+      <div class="bloco">
+        <h2>Por categoria</h2>
+        <div id="grafico"></div>
+      </div>
+
+    </section>
+
+  </main>
+
   <script src="script.js"></script>
 
 </body>
