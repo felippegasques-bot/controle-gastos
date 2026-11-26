@@ -5,13 +5,19 @@
   --texto: #1f2328;
   --suave: #6b6f76;
   --linha: #e3e1da;
+  --grade: #eeece6;
   --verde: #1f6f4a;
   --verde-claro: #e4efe8;
+  --amarelo: #b26a00;
   --vermelho: #b3261e;
 }
 
 * {
   box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
 }
 
 /* estilo geral da pagina */
@@ -24,12 +30,12 @@ body {
 }
 
 .pagina {
-  max-width: 920px;
+  max-width: 980px;
   margin: 0 auto;
-  padding: 32px 20px 48px;
+  padding: 32px 20px 40px;
 }
 
-/* topo */
+/* ---------- topo ---------- */
 .topo {
   display: flex;
   justify-content: space-between;
@@ -48,23 +54,35 @@ h1 {
   color: var(--suave);
 }
 
-.mes {
+.navegar-mes {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 13px;
-  color: var(--suave);
+  align-items: center;
+  gap: 6px;
 }
 
-/* cartoes do resumo */
+.seta {
+  background: var(--papel);
+  color: var(--texto);
+  border: 1px solid var(--linha);
+  width: 36px;
+  height: 38px;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ---------- cartoes do resumo ---------- */
 .resumo {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   margin-bottom: 16px;
 }
 
 .cartao {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   background: var(--papel);
   border: 1px solid var(--linha);
   border-radius: 8px;
@@ -72,10 +90,10 @@ h1 {
 }
 
 .rotulo {
-  display: block;
+  display: flex;
+  justify-content: space-between;
   font-size: 13px;
   color: var(--suave);
-  margin-bottom: 4px;
 }
 
 .cartao strong {
@@ -86,7 +104,57 @@ h1 {
   color: var(--verde);
 }
 
-/* formulario */
+.nota {
+  font-size: 12.5px;
+  color: var(--suave);
+}
+
+.nota.pior {
+  color: var(--vermelho);
+}
+
+.nota.melhor {
+  color: var(--verde);
+}
+
+/* barra do limite do mes */
+.medidor {
+  height: 6px;
+  margin: 4px 0 2px;
+  background: var(--verde-claro);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.medidor-barra {
+  height: 100%;
+  background: var(--verde);
+  border-radius: 0 3px 3px 0;
+}
+
+.medidor-barra.atencao {
+  background: var(--amarelo);
+}
+
+.medidor-barra.estourou {
+  background: var(--vermelho);
+}
+
+.form-limite {
+  display: flex;
+  gap: 6px;
+}
+
+.form-limite input {
+  width: 100%;
+  padding: 6px 8px;
+}
+
+.form-limite button {
+  padding: 6px 10px;
+}
+
+/* ---------- formulario ---------- */
 .form {
   display: grid;
   grid-template-columns: 2fr 1fr 1.2fr 1.2fr auto;
@@ -113,7 +181,7 @@ select:focus {
   border-color: var(--verde);
 }
 
-/* botao */
+/* botoes */
 button {
   font: inherit;
   cursor: pointer;
@@ -125,7 +193,7 @@ button {
 }
 
 button:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.08);
 }
 
 .secundario {
@@ -134,33 +202,147 @@ button:hover {
   border: 1px solid var(--verde);
 }
 
+/* botao com cara de link */
+.link {
+  background: none;
+  color: var(--verde);
+  padding: 0;
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .erro {
   min-height: 18px;
-  margin: 6px 2px 10px;
+  margin: 6px 2px 8px;
   font-size: 13px;
   color: var(--vermelho);
 }
 
-/* lista e grafico lado a lado */
+/* ---------- blocos ---------- */
+.bloco {
+  background: var(--papel);
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.bloco-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 15px;
+}
+
+.dica {
+  color: var(--suave);
+  font-size: 13px;
+}
+
 .colunas {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   gap: 16px;
 }
 
-.bloco {
+/* ---------- grafico por dia ---------- */
+.grafico-dias svg {
+  display: block;
+  overflow: visible;
+}
+
+.grade {
+  stroke: var(--grade);
+  stroke-width: 1;
+}
+
+.eixo {
+  stroke: var(--linha);
+  stroke-width: 1;
+}
+
+.texto-eixo {
+  fill: var(--suave);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.texto-valor {
+  fill: var(--texto);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.coluna {
+  fill: var(--verde);
+  transition: opacity 0.1s;
+}
+
+.coluna.ativa {
+  opacity: 0.75;
+}
+
+.alvo {
+  fill: transparent;
+  cursor: default;
+  outline: none;
+}
+
+.alvo:focus-visible {
+  stroke: var(--verde);
+  stroke-width: 1;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 240px;
+  padding: 8px 10px;
   background: var(--papel);
   border: 1px solid var(--linha);
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  font-size: 12.5px;
+  pointer-events: none;
 }
 
-h2 {
-  margin: 0 0 10px;
-  font-size: 15px;
+.tooltip strong {
+  font-size: 14px;
 }
 
-/* lista de gastos */
+.tooltip span {
+  color: var(--suave);
+}
+
+/* ---------- lista de gastos ---------- */
+.acoes {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.filtro {
+  font-size: 13px;
+  background: var(--verde-claro);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+.filtro .link {
+  margin-left: 6px;
+  font-size: 12px;
+}
+
 ul {
   list-style: none;
   margin: 0;
@@ -170,7 +352,7 @@ ul {
 /* usei grid pra alinhar data, nome, categoria, valor e botão */
 li {
   display: grid;
-  grid-template-columns: 46px 1fr auto 92px 28px;
+  grid-template-columns: 46px 1fr auto 96px 28px;
   align-items: center;
   gap: 10px;
   padding: 9px 0;
@@ -224,16 +406,36 @@ li:last-child {
   padding: 24px 0 8px;
 }
 
-/* grafico por categoria */
+/* ---------- grafico por categoria ---------- */
 .barra-linha {
-  margin-bottom: 12px;
+  display: block;
+  text-align: left;
+  background: none;
+  color: var(--texto);
+  padding: 6px 6px 8px;
+  margin: 0 -6px 4px;
+  width: calc(100% + 12px);
+  border-radius: 6px;
+}
+
+.barra-linha:hover {
+  background: var(--fundo);
+  filter: none;
+}
+
+.barra-linha.apagada {
+  opacity: 0.4;
+}
+
+.barra-linha[aria-pressed="true"] {
+  background: var(--verde-claro);
 }
 
 .barra-topo {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
 .barra-topo span:last-child {
@@ -242,30 +444,42 @@ li:last-child {
 }
 
 .barra-trilho {
+  display: block;
   height: 8px;
-  background: var(--fundo);
-  border-radius: 4px;
+  background: var(--verde-claro);
+  border-radius: 0 4px 4px 0;
 }
 
 .barra {
+  display: block;
   height: 100%;
   background: var(--verde);
-  border-radius: 4px;
+  border-radius: 0 4px 4px 0;
 }
 
-.dica {
-  color: var(--suave);
+/* ---------- rodape ---------- */
+.rodape {
+  margin-top: 8px;
+  text-align: center;
   font-size: 13px;
+  color: var(--suave);
 }
 
-/* celular */
-@media (max-width: 720px) {
+.rodape a {
+  color: var(--verde);
+}
+
+/* ---------- celular ---------- */
+@media (max-width: 760px) {
   .topo {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .resumo,
+  .resumo {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .form,
   .colunas {
     grid-template-columns: 1fr;

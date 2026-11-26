@@ -17,10 +17,11 @@
         <h1>Controle de Gastos</h1>
         <p class="subtitulo">Anote o que gastou e veja para onde o dinheiro está indo.</p>
       </div>
-      <label class="mes">
-        Mês
-        <input type="month" id="mes">
-      </label>
+      <div class="navegar-mes">
+        <button type="button" class="seta" id="mesAnterior" aria-label="Mês anterior">‹</button>
+        <input type="month" id="mes" aria-label="Mês">
+        <button type="button" class="seta" id="mesSeguinte" aria-label="Próximo mês">›</button>
+      </div>
     </header>
 
     <!-- resumo do mes -->
@@ -28,22 +29,43 @@
       <div class="cartao">
         <span class="rotulo">Total do mês</span>
         <strong id="total">R$ 0,00</strong>
+        <span class="nota" id="variacao"></span>
       </div>
+
+      <div class="cartao">
+        <span class="rotulo">
+          Limite do mês
+          <button type="button" class="link" id="editarLimite">definir</button>
+        </span>
+        <strong id="limite">—</strong>
+        <form class="form-limite" id="formLimite" hidden>
+          <input type="number" id="campoLimite" step="0.01" min="0" placeholder="Ex.: 3000">
+          <button type="submit">Salvar</button>
+        </form>
+        <div class="medidor" id="medidorTrilho" hidden>
+          <div class="medidor-barra" id="medidor"></div>
+        </div>
+        <span class="nota" id="restante">Defina um valor para acompanhar.</span>
+      </div>
+
       <div class="cartao">
         <span class="rotulo">Maior categoria</span>
         <strong id="maiorCategoria">—</strong>
+        <span class="nota" id="maiorParte"></span>
       </div>
+
       <div class="cartao">
-        <span class="rotulo">Gastos lançados</span>
-        <strong id="quantidade">0</strong>
+        <span class="rotulo">Média por dia</span>
+        <strong id="media">R$ 0,00</strong>
+        <span class="nota" id="quantidade">0 gastos lançados</span>
       </div>
     </section>
 
     <!-- formulario pra adicionar gasto -->
     <form class="form" id="form">
-      <input type="text" id="nome" placeholder="Descrição (ex.: mercado)" maxlength="60">
-      <input type="number" id="valor" placeholder="Valor" step="0.01" min="0">
-      <select id="categoria">
+      <input type="text" id="nome" placeholder="Descrição (ex.: mercado)" maxlength="60" aria-label="Descrição">
+      <input type="number" id="valor" placeholder="Valor" step="0.01" min="0" aria-label="Valor">
+      <select id="categoria" aria-label="Categoria">
         <option>Mercado</option>
         <option>Contas</option>
         <option>Transporte</option>
@@ -52,16 +74,34 @@
         <option>Lazer</option>
         <option>Outros</option>
       </select>
-      <input type="date" id="data">
+      <input type="date" id="data" aria-label="Data">
       <button type="submit">Adicionar</button>
     </form>
     <p class="erro" id="erro"></p>
 
-    <!-- lista e grafico lado a lado -->
+    <!-- grafico de gastos por dia -->
+    <section class="bloco">
+      <div class="bloco-topo">
+        <h2>Gastos por dia</h2>
+        <span class="dica" id="diaMaior"></span>
+      </div>
+      <div class="grafico-dias" id="graficoDias"></div>
+    </section>
+
+    <!-- lista e grafico por categoria lado a lado -->
     <section class="colunas">
 
       <div class="bloco">
-        <h2>Gastos</h2>
+        <div class="bloco-topo">
+          <h2>Gastos</h2>
+          <div class="acoes">
+            <span class="filtro" id="filtro" hidden>
+              <span id="filtroNome"></span>
+              <button type="button" class="link" id="limparFiltro">ver todos</button>
+            </span>
+            <button type="button" class="link" id="exportar">Exportar CSV</button>
+          </div>
+        </div>
         <ul id="lista"></ul>
         <div class="vazio" id="vazio">
           <p>Nenhum gasto neste mês.</p>
@@ -70,13 +110,24 @@
       </div>
 
       <div class="bloco">
-        <h2>Por categoria</h2>
+        <div class="bloco-topo">
+          <h2>Por categoria</h2>
+          <span class="dica">clique para filtrar</span>
+        </div>
         <div id="grafico"></div>
       </div>
 
     </section>
 
+    <footer class="rodape">
+      Feito por Felippe Fabri ·
+      <a href="https://github.com/felippegasques-bot/controle-gastos">código no GitHub</a>
+    </footer>
+
   </main>
+
+  <!-- caixinha que aparece ao passar o mouse no grafico -->
+  <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
 
   <script src="script.js"></script>
 
